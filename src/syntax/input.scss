@@ -1,17 +1,1 @@
-$base-color: #121212;
-$bg-color: yellow;
-
-body {
-  font-size: 1rem;
-  color: $base-color;
-  background: $bg-color;
-}
-
-p {
-  line-height: 1.5;
-}
-
-ul {
-  list-style: none;
-  color: #333;
-}
+@import "/02-variable.scss";
