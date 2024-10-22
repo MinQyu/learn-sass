@@ -1,0 +1,18 @@
+//inline-size, block-size
+
+@mixin inline-size($width: null) {
+  width: $width;
+  inline-size: $width;
+}
+
+@mixin block-size($height: null) {
+  height: $height;
+  block-size: $height;
+}
+
+@mixin size($width, $height: null) {
+  @include inline-size($width);
+  @if $height != null {
+    @include block-size($height);
+  }
+}
