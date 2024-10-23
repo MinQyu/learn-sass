@@ -1,0 +1,8 @@
+.error, .error--serious {
+  color: #bf2243;
+}
+.error--serious {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=04-extend.css.map */

@@ -1,4 +1,6 @@
-//inline-size, block-size
+@use "sass:map";
+@use "sass:string";
+@use "sass:math";
 
 @mixin inline-size($width: null) {
   width: $width;
@@ -10,9 +12,53 @@
   block-size: $height;
 }
 
+@mixin size-square($value) {
+  @include inline-size($value);
+  @include block-size($value);
+}
+
 @mixin size($width, $height: null) {
   @include inline-size($width);
   @if $height != null {
     @include block-size($height);
   }
+}
+
+@mixin flexbox($direction, $justify: null, $align: null, $wrap: null, $content: null) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  justify-content: $justify;
+  align-items: $align;
+  align-content: $content;
+}
+
+// 미디어쿼리 중단점
+$breakpoints: (
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  2xl: 1536,
+);
+
+// 미디어쿼리 믹스인
+@mixin mq($breakpoint) {
+  @each $key, $value in $breakpoints {
+    @if not map.has-key($breakpoints, $breakpoint) {
+      @error '#{$breakpoint}는 유효한 중단점이 아닙니다.(유효한 값:sm, md, lg, xl, 2xl)';
+    }
+  }
+
+  $viewport: map.get($breakpoints, $breakpoint);
+  $query: string.unquote("min-width: #{$viewport}px");
+
+  @media ($query) {
+    @content;
+  }
+}
+
+@mixin size-square-icon($value) {
+  $size: if(math.unit($value) == "px", $value, $value * 1px);
+
+  @include size-square($size);
 }
